@@ -55,4 +55,26 @@ router.get('/celebrities/:id', (req, res, next) => {
     });
 });
 
+router.get('/celebrities/create', (req, res, next) => {
+  res.render('celebrities/create');
+});
+
+router.post('/celebrities', (req, res, next) => {
+  const data = req.body;
+  Celebrity.create({
+    name: data.name,
+    occupation: data.occupation,
+    catchPhrase: data.catchPhrase
+  }).then((celebrity) => {
+    if (celebrity === null) {
+      const error = new Error('There is an error');
+      error.status = 404;
+      next(error);
+      res.render('/celebrities/create');
+    } else {
+      res.redirect('/celebrities', { celebrity: celebrity });
+    }
+  });
+});
+
 module.exports = router;
