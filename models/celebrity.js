@@ -7,14 +7,14 @@ const celebritySchema = new mongoose.Schema({
     required: true
   },
   occupation: {
-    type: String,
-    enum: ['actor', 'singer', 'comedian', 'unknown']
+    type: String
+    //enum: ['actor', 'singer', 'comedian', 'unknown']
   },
   catchPhrase: {
     type: String
   }
 });
 
-const Celebrity = mongoose.model('Celebritie', celebritySchema);
+const Celebrity = mongoose.model('Celebrity', celebritySchema);
 
 module.exports = Celebrity;
