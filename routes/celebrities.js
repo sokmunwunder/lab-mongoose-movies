@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Celebrity = require('./../models/celebrity');
 
-//router.get('/create', (req, res, next) => {
+//router.get('/create', (req, res, next) => {   => To be changed back
 router.get('/celebrities', (req, res, next) => {
   Celebrity.find({})
     .then((celebrities) => {
@@ -34,7 +34,8 @@ router.get('/celebrities', (req, res, next) => {
   res.render('celebrities/create');
 });*/
 
-router.get('/create/:id', (req, res, next) => {
+//router.get('/create/:id', (req, res, next) => { = > To be changed
+router.get('/celebrities/:id', (req, res, next) => {
   const id = req.params.id;
   Celebrity.findById(id)
     .then((celebrity) => {
