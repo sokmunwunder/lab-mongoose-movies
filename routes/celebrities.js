@@ -8,6 +8,8 @@ router.get('/celebrities', (req, res, next) => {
     .then((celebrities) => {
       res.render('celebrities/index', { celebrities });
     })
+
+    // {celebrities} - an array of the celebrities
     /*.then((celebrities) => {
       res.render('celebrities/show', { celebrities });
     })*/
@@ -34,6 +36,10 @@ router.get('/celebrities', (req, res, next) => {
   res.render('celebrities/create');
 });*/
 
+router.get('/celebrities/create', (req, res, next) => {
+  res.render('celebrities/create');
+});
+
 //router.get('/create/:id', (req, res, next) => { = > To be changed
 router.get('/celebrities/:id', (req, res, next) => {
   const id = req.params.id;
@@ -53,10 +59,6 @@ router.get('/celebrities/:id', (req, res, next) => {
       }
       next(error);
     });
-});
-
-router.get('/celebrities/create', (req, res, next) => {
-  res.render('celebrities/create');
 });
 
 /*router.post('/celebrities', (req, res, next) => {
@@ -79,26 +81,18 @@ router.get('/celebrities/create', (req, res, next) => {
 
 router.post('/celebrities', (req, res, next) => {
   const data = req.body;
-  Celebrity.create({
+  const celebrity = new Celebrity({
     name: data.name,
     occupation: data.occupation,
     catchPhrase: data.catchPhrase
-  }).save(celebrity =>{
-    console.log('saved to database');
-  })
-  .then((celebrity) => {
-    if (celebrity === null) {
-      const error = new Error('There is an error');
-      error.status = 404;
-      next(error);
-      res.render('/celebrities/create');
-    } else {
-      res.redirect('/celebrities', { celebrity: celebrity });
-    }
   });
-});*/
-
-
-
-
+  celebrity
+    .save()
+    .then((celebrity) => {
+      res.redirect('/celebrities');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 module.exports = router;
