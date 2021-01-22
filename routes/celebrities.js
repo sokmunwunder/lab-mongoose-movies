@@ -111,6 +111,17 @@ router.get('/celebrities/:id/edit', (req, res, next) => {
   let id = req.params.id;
   Celebrity.findById(id)
     .then((celebrity) => {
+      res.render('celebrities/edit');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+/*router.get('/celebrities/:id/edit', (req, res, next) => {
+  let id = req.params.id;
+  Celebrity.findById(id)
+    .then((celebrity) => {
       if (celebrity === null) {
         const error = new Error('Celebrity does not exist.');
         error.status = 404;
@@ -125,6 +136,6 @@ router.get('/celebrities/:id/edit', (req, res, next) => {
       }
       next(error);
     });
-});
+});*/
 
 module.exports = router;
