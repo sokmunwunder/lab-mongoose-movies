@@ -126,24 +126,37 @@ router.get('/celebrities/:id/edit', (req, res, next) => {
     });
 });
 
-/*router.get('/celebrities/:id/edit', (req, res, next) => {
-  let id = req.params.id;
-  Celebrity.findById(id)
+/*router.post('/celebrities/:id', (req, res, next) => {
+  const id = req.params.id;
+  const data = req.body;
+  Celebrity.findByIdAndUpdate(id, {
+    name: data.name,
+    occupation: data.occupation,
+    catchPhrase: data.catchPhrase
+  })
     .then((celebrity) => {
-      if (celebrity === null) {
-        const error = new Error('Celebrity does not exist.');
-        error.status = 404;
-        next(error);
-      } else {
-        res.render('celebrities/edit', { celebrity: celebrity });
-      }
+      res.redirect('/celebrities');
     })
     .catch((error) => {
-      if (error.kind === 'ObjectId') {
-        error.status = 404;
-      }
       next(error);
     });
 });*/
+
+router.post('/celebrities/:id', (req, res, next) => {
+  const id = req.params.id;
+  const data = req.body;
+  //Celebrity.findByIdAndUpdate(data._id, {
+  Celebrity.findByIdAndUpdate(id, {
+    name: data.name,
+    occupation: data.occupation,
+    catchPhrase: data.catchPhrase
+  })
+    .then((celebrity) => {
+      res.redirect('/celebrities');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
 module.exports = router;
