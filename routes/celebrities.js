@@ -109,9 +109,17 @@ router.post('/celebrities/:id/delete', (req, res, next) => {
 
 router.get('/celebrities/:id/edit', (req, res, next) => {
   let id = req.params.id;
+
   Celebrity.findById(id)
     .then((celebrity) => {
-      res.render('celebrities/edit');
+      const name = celebrity.name;
+      const occupation = celebrity.occupation;
+      const catchPhrase = celebrity.catchPhrase;
+      res.render(
+        'celebrities/edit',
+        { name: name, occupation: occupation, catchPhrase: catchPhrase }
+        //{ occupation: occupation}
+      );
     })
     .catch((error) => {
       next(error);
